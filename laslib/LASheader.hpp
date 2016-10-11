@@ -5,7 +5,7 @@ using string = std::string;
 struct LASHeader {
 
   struct NumberofPointsByReturn {
-    constexpr uint8_t MAX = 15;
+    static constexpr uint8_t MAX = 15;
 
     uint64_t & operator [](int i) {
       return value[i % MAX];
@@ -13,10 +13,10 @@ struct LASHeader {
 
     private:
     uint64_t value[15];
-  }
+  };
 
   struct LegacyNumberOfPointRecordsByReturn {
-    constexpr uint8_t MAX = 5;
+    static constexpr uint8_t MAX = 5;
 
     uint64_t & operator [](int i) {
       return value[i % MAX];
@@ -24,11 +24,11 @@ struct LASHeader {
 
     private:
     uint64_t value[15];
-  }
+  };
 
-  constexpr uint16_t MAX_BYTE_SIZE = 375;
-  constexpr uint8_t LEGACY_NUMBER_OF_POINT_RECORDS_BY_RETURN_SIZE = 5;
-  constexpr uint8_t NUMBER_OF_POINTS_BY_RETURN_SIZE = 15;
+  static constexpr uint16_t MAX_BYTE_SIZE = 375;
+  static constexpr uint8_t LEGACY_NUMBER_OF_POINT_RECORDS_BY_RETURN_SIZE = 5;
+  static constexpr uint8_t NUMBER_OF_POINTS_BY_RETURN_SIZE = 15;
 
   string fileSignature = "LASF";
   uint16_t fileSourceID;
