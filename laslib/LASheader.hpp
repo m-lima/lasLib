@@ -4,6 +4,28 @@ using string = std::string;
 
 struct LASHeader {
 
+  struct NumberofPointsByReturn {
+    constexpr uint8_t MAX = 15;
+
+    uint64_t & operator [](int i) {
+      return value[i % MAX];
+    }
+
+    private:
+    uint64_t value[15];
+  }
+
+  struct LegacyNumberOfPointRecordsByReturn {
+    constexpr uint8_t MAX = 5;
+
+    uint64_t & operator [](int i) {
+      return value[i % MAX];
+    }
+
+    private:
+    uint64_t value[15];
+  }
+
   constexpr uint16_t MAX_BYTE_SIZE = 375;
   constexpr uint8_t LEGACY_NUMBER_OF_POINT_RECORDS_BY_RETURN_SIZE = 5;
   constexpr uint8_t NUMBER_OF_POINTS_BY_RETURN_SIZE = 15;
@@ -27,7 +49,7 @@ struct LASHeader {
   uint8_t pointDataRecordFormat;
   uint16_t pointDataRecordLength = 20;
   uint32_t legacyNumberOfPointRecords;
-  uint32_t legacyNumberOfPointRecordsByReturn[LEGACY_NUMBER_OF_POINT_RECORDS_BY_RETURN_SIZE];
+  LegacyNumberOfPointRecordsByReturn legacyNumberOfPointRecordsByReturn;
   double xScaleFactor = 1;
   double yScaleFactor = 1;
   double zScaleFactor = 1;
@@ -44,6 +66,6 @@ struct LASHeader {
   uint64_t startOfFirstExtendedVariableLengthRecord;
   uint32_t numberOfExtendedVariableLengthRecords;
   uint64_t numberOfPointRecords;
-  uint64_t numberOfPointsByReturn[NUMBER_OF_POINTS_BY_RETURN_SIZE];
+  NumberofPointsByReturn numberOfPointsByReturn;
 
 };
